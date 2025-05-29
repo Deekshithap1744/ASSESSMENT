@@ -1,38 +1,88 @@
-university_data = {
-    "S101": {
-        "name": "Alice Johnson",
-        "major": "Computer Science",
-        "courses": {
-            "Python101": {"midterm": 88, "final": 92, "project": 94},
-            "Math201": {"midterm": 78, "final": 85, "project": 80}
-        }
-    },  # <-- Missing comma added here
-    "S102": {
-        "name": "Bob Smith",
-        "major": "Mathematics",
-        "courses": {
-            "Math201": {"midterm": 90, "final": 93, "project": 88},
-            "Stats101": {"midterm": 84, "final": 80, "project": 85}
-        }
-    },
-    "S103": {
-        "name": "Clara Lopez",
-        "major": "Physics",
-        "courses": {
-            "Physics101": {"midterm": 75, "final": 82, "project": 78},
-            "Math201": {"midterm": 70, "final": 72, "project": 68}
-        }
-    }
-}
+# #create class as department, dept id ,dept name,location,hod,no.of depts through the constructor initialise the different depts,attributes
+# # create a method to display important informaation,display total depts in your organization
+# # take input from user, store all info in the list,tuple or dictionary
+# #search department by dept id,if valid give all the info, if not say not valid
+# # add a function to search dept by name,implement search by name functionality
 
-print(university_data)
+class Department:
+    dept_count = 0
+    l = []
 
-#printing names with their majors
-for stud_id,info in university_data.items():
-    name=info["name"]
-    ma=info["major"]
-    print(f"Name:{name},Major:{ma}")
-# Name:Alice Johnson,Major:Computer Science
-# Name:Bob Smith,Major:Mathematics
-# Name:Clara Lopez,Major:P
+    def __init__(self):
+        self.DepartmentId = int(input("Enter the Department Id: "))
+        self.DeptName = input("Enter the Department Name: ")
+        self.Location = input("Enter the Location: ")
+        self.Hod = input("Enter the Head of the Department: ")
+        Department.dept_count += 1
+        Department.l.append(self)
 
+    def getDept_details(self):
+        print("\nDepartment Information")
+        print("--------------------------------------")
+        print(f"Department Id: {self.DepartmentId}")
+        print(f"Department Name: {self.DeptName}")
+        print(f"Location: {self.Location}")
+        print(f"Head of the Department: {self.Hod}")
+
+    @classmethod
+    def total_dept(cls):
+        return cls.dept_count
+
+    @classmethod
+    def search_by_id(cls, DepartmentId):
+        for dept in cls.l:
+            if dept.DepartmentId == DepartmentId:
+                dept.getDept_details()
+                return
+        print("Invalid Id")
+
+    @classmethod
+    def search_by_name(cls, DeptName):
+        for dept in cls.l:
+            if dept.DeptName.lower() == DeptName.lower():
+                dept.getDept_details()
+                return
+        print("No name Exists")
+
+n = int(input("How many departments do you want to add? "))
+
+
+for i in range(n):
+    print(f"\nEntering details for Department {i + 1}")
+    dept_obj = Department()
+
+print("\nDisplaying first department details:")
+Department.l[0].getDept_details()
+print(f"\nTotal Departments: {Department.total_dept()}")
+
+print("\n--- Search Options ---")
+option = input("Search by ID or Name? (id/name): ").strip().lower()
+if option == "id":
+    DeptId = int(input("Enter ID to search: "))
+    Department.search_by_id(DeptId)
+elif option == "name":
+    DeptName = input("Enter Name to search: ")
+    Department.search_by_name(DeptName)
+else:
+    print("Invalid choice.") 
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
